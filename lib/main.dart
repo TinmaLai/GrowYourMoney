@@ -89,17 +89,32 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Column(
         children: [
-          for (var moneyInputField in moneyInputFields)
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0, top: 10.0, right: 16.0, bottom: 8.0),
-              child: moneyInputField,
+          
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+            Flexible(
+              child: MoneyInputField(
+                onChanged: (amount) {
+                  print('Entered amount: $amount');
+                  // You can perform further actions with the entered amount here
+                },
+              ),
             ),
+            const Flexible(
+              child: Text('tiền nè')
+            ),
+            
+            
+          ],)
+          
         ],
-      ),
+      ), 
     
       
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {
+        onPressed: () {
           setState(() {
             moneyInputFields.add(
               MoneyInputField(
@@ -109,11 +124,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
               ),
             );
-          }),
+          });
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ), 
     );
   }
 }
