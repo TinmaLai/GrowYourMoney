@@ -1,134 +1,258 @@
 import 'package:flutter/material.dart';
-import 'Input.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'GYM - Grow Your Money',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(),
+      home: HomeScreen(),
+      debugShowCheckedModeBanner: false, // Thêm dòng này để bỏ ruy băng debug
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  List<MoneyInputField> moneyInputFields = [];
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-    
-  }
-  
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-      ),
-      body: Column(
-        children: [
-          
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-            Flexible(
-              child: MoneyInputField(
-                onChanged: (amount) {
-                  print('Entered amount: $amount');
-                  // You can perform further actions with the entered amount here
-                },
-              ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: CircleAvatar(
+            backgroundImage:
+                AssetImage(''), // Thay bằng hình ảnh avatar của bạn
+          ),
+        ),
+        centerTitle: true,
+        title: const Text(
+          'Home',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.notifications,
+              color: Colors.red,
             ),
-            const Flexible(
-              child: Text('tiền nè')
-            ),
-            
-            
-          ],)
-          
+            onPressed: () {},
+          )
         ],
-      ), 
-    
-      
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            moneyInputFields.add(
-              MoneyInputField(
-                onChanged: (amount) {
-                  print('Entered amount: $amount');
-                  // You can perform further actions with the entered amount here
-                },
-              ),
-            );
-          });
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), 
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+              Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          height: 100.0, // Thiết lập chiều cao là 100
+                          width: 200.0, // Thiết lập chiều rộng là 200
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 90, 206, 93).withOpacity(0.15),
+                            borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                            border: Border.all(
+                              color: Colors.black.withOpacity(0.15), // Màu của viền
+                              width: 2, // Độ rộng của viền
+                            ),
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: Column(
+                              children: [
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Thu',
+                                    style: TextStyle(
+                                      color: Color.fromARGB(255, 32, 73, 33),
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 20),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    '500.000 đ',
+                                    style: TextStyle(
+                                      color: Color.fromARGB(255, 32, 73, 33),
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold, // Bôi đậm chữ
+                                    ),
+                                  ),
+                                ),
+                                // Thêm nội dung khác của ô này tại đây
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Container(
+                          height: 100.0, // Thiết lập chiều cao là 100
+                          width: 200.0,
+                          decoration: BoxDecoration(
+                            color:Colors.blue.withOpacity(0.15), // Thay đổi màu sắc cho ô thứ hai
+                            borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                            border: Border.all(
+                              color: Colors.black.withOpacity(0.15), // Màu của viền
+                              width: 2, // Độ rộng của viền
+                            ),
+                            
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: Column(
+                              children: [
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Chi',
+                                    style: TextStyle(
+                                      color: Color.fromARGB(255, 17, 78, 128),
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 20),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    '500.000 đ',
+                                    style: TextStyle(
+                                      color: Color.fromARGB(255, 17, 78, 128),
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold, // Bôi đậm chữ
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Container(
+                          height: 100.0, // Thiết lập chiều cao là 100
+                          width: 200.0,
+                          decoration: BoxDecoration(
+                            color:Colors.red.withOpacity(0.15), // Thay đổi màu sắc cho ô thứ hai
+                            borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                            border: Border.all(
+                              color: Colors.black.withOpacity(0.15), // Màu của viền
+                              width: 2, // Độ rộng của viền
+                            ),
+                            
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: Column(
+                              children: [
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Nợ',
+                                    style: TextStyle(
+                                      color: Color.fromARGB(255, 121, 33, 27),
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 20),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    '1.200.000',
+                                    style: TextStyle(
+                                      color: Color.fromARGB(255, 121, 33, 27),
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold, // Bôi đậm chữ
+                                    ),
+                                  ),
+                                ),
+                                
+                                // Thêm nội dung khác của ô này tại đây
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: '',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TransactionTile extends StatelessWidget {
+  final String icon;
+  final String store;
+  final String accountType;
+  final String amount;
+  final String date;
+
+  TransactionTile({
+    required this.icon,
+    required this.store,
+    required this.accountType,
+    required this.amount,
+    required this.date,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: CircleAvatar(
+        backgroundImage: AssetImage(icon),
+      ),
+      title: Text(store),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(accountType),
+          Text(date),
+        ],
+      ),
+      trailing: Text(
+        amount,
+        style: const TextStyle(
+          color: Colors.green,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     );
   }
 }
